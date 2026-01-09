@@ -9,77 +9,114 @@
     :root {
       --text: #ffffff;
       --primary: #4CAF50;
-      --secondary: #2196F3;
+      --primary-dark: #2E7D32;
+      --primary-light: #81C784;
+      --bg-dark: rgba(0, 0, 0, 0.6);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: system-ui, Segoe UI, Arial;
       background: url('rojet.jpg') no-repeat center center/cover;
+      background-attachment: fixed;
       color: var(--text);
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 20px;
     }
     
     /* العنوان الرئيسي */
     .main-title {
-      text-align: center;
       font-size: 32px;
       font-weight: 700;
-      margin: 0 0 30px 0;
+      margin: 10px 0 30px 0;
       color: var(--text);
       text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-    }
-    
-    /* حاوية الأقسام */
-    .sections-container {
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    /* كل قسم */
-    .model-section {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(15px);
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    /* عنوان القسم */
-    .section-title {
-      font-size: 26px;
-      margin: 0 0 20px 0;
-      padding-bottom: 15px;
-      border-bottom: 2px solid;
-      color: var(--text);
       text-align: center;
     }
     
-    .section-title.robot {
-      border-color: var(--primary);
-      color: var(--primary);
+    /* أزرار التبديل */
+    .tabs-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      background: var(--bg-dark);
+      backdrop-filter: blur(10px);
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     }
     
-    .section-title.remote {
-      border-color: var(--secondary);
-      color: var(--secondary);
+    .tab-btn {
+      padding: 14px 35px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.7);
+      position: relative;
+      overflow: hidden;
     }
     
-    /* حاوية النموذج داخل القسم */
+    .tab-btn:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .tab-btn.active {
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+    }
+    
+    .tab-btn:nth-child(2).active {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+    }
+    
+    /* حاوية النموذج */
+    .model-wrapper {
+      width: 100%;
+      max-width: 1000px;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* عنوان النموذج الحالي */
+    .current-model-title {
+      font-size: 26px;
+      margin: 0 0 20px 0;
+      padding: 10px 0;
+      text-align: center;
+      width: 100%;
+      border-bottom: 2px solid var(--primary);
+      color: var(--primary-light);
+      text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    /* حاوية النموذج */
     .model-container {
       width: 100%;
-      height: 500px;
-      border-radius: 10px;
+      height: 550px;
+      border-radius: 15px;
       overflow: hidden;
       position: relative;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      box-shadow: inset 0 0 80px rgba(0,0,0,0.4);
+      background: var(--bg-dark);
+      backdrop-filter: blur(20px);
+      box-shadow: 
+        inset 0 0 100px rgba(0,0,0,0.5),
+        0 15px 40px rgba(0,0,0,0.5);
+      border: 1px solid rgba(76, 175, 80, 0.2);
+      transition: all 0.5s ease;
     }
     
     model-viewer {
@@ -89,56 +126,125 @@
       background: transparent;
     }
     
-    /* التعديلات للشاشات الصغيرة */
+    /* تأثيرات للشاشات الصغيرة */
     @media (max-width: 768px) {
-      .main-title { font-size: 26px; }
-      .section-title { font-size: 22px; }
-      .model-container { height: 400px; }
-      .sections-container { gap: 30px; }
-      .model-section { padding: 15px; }
+      .main-title { font-size: 26px; margin-bottom: 20px; }
+      .tabs-container { flex-direction: column; width: 90%; }
+      .tab-btn { width: 100%; padding: 16px; }
+      .model-container { height: 450px; }
+      .current-model-title { font-size: 22px; }
+      .model-wrapper { min-height: 500px; }
     }
     
     @media (max-width: 480px) {
-      .model-container { height: 300px; }
+      .model-container { height: 350px; }
       .main-title { font-size: 22px; }
+      .current-model-title { font-size: 20px; }
+    }
+    
+    /* تأثير ظهور النموذج */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0.5; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* مؤشر التحميل */
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--primary-light);
+      font-size: 18px;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
   <h1 class="main-title">FARM BOT 3D</h1>
   
-  <div class="sections-container">
-    
-    <!-- القسم الأول: ROBOT -->
-    <section class="model-section">
-      <h2 class="section-title robot">ROBOT FARM 80T</h2>
-      <div class="model-container">
-        <model-viewer
-          src="3R.glb"
-          alt="Farm Bot 3D Robot"
-          auto-rotate
-          camera-controls
-          shadow-intensity="1"
-          exposure="1">
-        </model-viewer>
-      </div>
-    </section>
-    
-    <!-- القسم الثاني: REMOTE -->
-    <section class="model-section">
-      <h2 class="section-title remote">REMOTE FARM 80T</h2>
-      <div class="model-container">
-        <model-viewer
-          src="RE.glb"
-          alt="Farm Bot Remote"
-          auto-rotate
-          camera-controls
-          shadow-intensity="1"
-          exposure="1">
-        </model-viewer>
-      </div>
-    </section>
-    
+  <div class="tabs-container">
+    <button class="tab-btn active" id="tab-robot">ROBOT FARM 80T</button>
+    <button class="tab-btn" id="tab-remote">REMOTE FARM 80T</button>
   </div>
+  
+  <div class="model-wrapper">
+    <h2 id="model-title" class="current-model-title">ROBOT FARM 80T</h2>
+    
+    <div class="model-container fade-in">
+      <div id="loading" class="loading" style="display: none;">جاري التحميل...</div>
+      <model-viewer
+        id="model-viewer"
+        src="3R.glb"
+        alt="Farm Bot 3D Robot"
+        auto-rotate
+        camera-controls
+        shadow-intensity="1"
+        exposure="1">
+      </model-viewer>
+    </div>
+  </div>
+
+  <script>
+    // الحصول على العناصر
+    const modelViewer = document.getElementById('model-viewer');
+    const modelTitle = document.getElementById('model-title');
+    const modelContainer = document.querySelector('.model-container');
+    const tabRobot = document.getElementById('tab-robot');
+    const tabRemote = document.getElementById('tab-remote');
+    const loading = document.getElementById('loading');
+    
+    // دالة للتبديل بين النماذج
+    function switchModel(modelType, modelFile, modelName) {
+      // تحديث الأزرار
+      tabRobot.classList.toggle('active', modelType === 'robot');
+      tabRemote.classList.toggle('active', modelType === 'remote');
+      
+      // تحديث العنوان
+      modelTitle.textContent = modelName;
+      
+      // إظهار مؤشر التحميل
+      loading.style.display = 'block';
+      modelContainer.classList.remove('fade-in');
+      
+      // تغيير النموذج
+      setTimeout(() => {
+        modelViewer.src = modelFile;
+        modelViewer.alt = modelName;
+        
+        // إخفاء التحميل بعد ثانية
+        setTimeout(() => {
+          loading.style.display = 'none';
+          modelContainer.classList.add('fade-in');
+        }, 1000);
+      }, 300);
+    }
+    
+    // تبديل إلى الروبوت
+    tabRobot.addEventListener('click', function() {
+      if (tabRobot.classList.contains('active')) return;
+      switchModel('robot', '3R.glb', 'ROBOT FARM 80T');
+    });
+    
+    // تبديل إلى الريموت
+    tabRemote.addEventListener('click', function() {
+      if (tabRemote.classList.contains('active')) return;
+      switchModel('remote', 'RE.glb', 'REMOTE FARM 80T');
+    });
+    
+    // إخفاء التحميل عند اكتمال تحميل النموذج
+    modelViewer.addEventListener('load', function() {
+      loading.style.display = 'none';
+    });
+    
+    // تهيئة أولية
+    window.addEventListener('load', function() {
+      modelContainer.classList.add('fade-in');
+    });
+  </script>
 </body>
 </html>
